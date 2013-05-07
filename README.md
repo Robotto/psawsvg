@@ -18,7 +18,7 @@ psawsvg.py - The actual code, which reads the current layer's style attributes a
 
 If a layer already has PSAW attributes, these are overwritten, so don't worry about duplicate entries.
 
-The 'linepitch' attribute is only written if the engraving layer box is checked. This also overrides the 'speed' and 'passes' attributes, because you don't want several passes in an engraving, and the acceleration during engraving is handled by the PSAW software.
+The 'linepitch' attribute is only written if the engraving layer box is checked. This also overrides the 'passes' attribute, because you don't want several passes in an engraving.
 
 Installation
 ============
