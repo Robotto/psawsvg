@@ -5,13 +5,15 @@
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <param name="info" type="description">Set PSAW attrributes for the current layer:</param>
   <param name="hint" type="description">REMEMBER TO EXECUTE THIS EXTENSION FOR EACH LAYER!</param>
-  <param name="PSAWpasses" type="string" _gui-text="# Of passes">2</param>
-  <param name="PSAWspeed" type="string" _gui-text="Speed in mm/sec">20</param>
-  <param name="PSAWpower" type="string" _gui-text="Power in watts from 0 to 80">80</param>
-  <param name="PSAWlinepitch" type="string" _gui-text="Linepitch for engraving in mm/pixel">0.1</param>
-  <param name="PSAWassistair" type="boolean" _gui-text="Assistair">true</param>
-  <param name="live_warn" type="description">Don't bother with the live preview.. it wont show anything..</param>
-  <effect>
+  <param name="passes" type="string" _gui-text="# Of passes">2</param>
+  <param name="speed" type="string" _gui-text="Speed in mm/sec">20</param>
+  <param name="power" type="string" _gui-text="Power in watts from 0 to 80">80</param>
+  <param name="assistair" type="boolean" _gui-text="Assistair on/off">true</param>
+  <param name="engravinghint" type="description">Checking the engraving box overrides the speed and passes settings to 500mm/s and a single pass, since acceleration is handled by the PSAW raster decoder</param>
+  <param name="isEngravingLayer" type="boolean" _gui-text="Is this an engraving layer?">false</param>
+  <param name="linepitch" type="string" _gui-text="Linepitch for engraving in mm/pixel">0.1</param>
+  <effect needs-live-preview="false">
+
     <object-type>all</object-type>
     <effects-menu>
   

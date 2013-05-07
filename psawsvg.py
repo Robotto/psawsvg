@@ -24,38 +24,44 @@ class PSAWsvg(inkex.Effect):
         inkex.Effect.__init__(self)
 
         # Define string option "--what" with "-w" shortcut and default value "World".
-        self.OptionParser.add_option('-p', '--PSAWpasses', action = 'store',
-          type = 'string', dest = 'PSAWpasses', default = '2',
-          help = 'Enter number of passes')
-        self.OptionParser.add_option('-s', '--PSAWspeed', action = 'store',
-          type = 'string', dest = 'PSAWspeed', default = '20',
-          help = 'Enter speed in mm/sec')
-        self.OptionParser.add_option('-P', '--PSAWpower', action = 'store',
-          type = 'string', dest = 'PSAWpower', default = '80',
-          help = 'Enter power in watts from 0 to 80')
-        self.OptionParser.add_option('-l', '--PSAWlinepitch', action = 'store',
-          type = 'string', dest = 'PSAWlinepitch', default = '0.1',
-          help = 'Enter raster linepitch in mm/pixel')
-        self.OptionParser.add_option('-a', '--PSAWassistair', action = 'store',
-          type = 'inkbool', dest = 'PSAWassistair', default = True,
-          help = 'Assistair on/off')
+        self.OptionParser.add_option('-p', '--passes', action = 'store', type = 'string', dest = 'passes', default = '2', help = 'Enter number of passes')
+        self.OptionParser.add_option('-s', '--speed', action = 'store', type = 'string', dest = 'speed', default = '20', help = 'Enter speed in mm/sec')
+        self.OptionParser.add_option('-P', '--power', action = 'store', type = 'string', dest = 'power', default = '80', help = 'Enter power in watts from 0 to 80')
+        self.OptionParser.add_option('-a', '--assistair', action = 'store', type = 'inkbool', dest = 'assistair', default = True, help = 'Assistair on/off')
+        self.OptionParser.add_option('-e', '--isEngravingLayer', action = 'store', type = 'inkbool', dest = 'isEngravingLayer', default = False, help ='Is the current layer intended for engraving?')
+        self.OptionParser.add_option('-l', '--linepitch', action = 'store', type = 'string', dest = 'linepitch', default = '0.1', help = 'Enter raster linepitch in mm/pixel')
+        
         
 
 
     def effect(self):
 
         # Get the option values.
-        passes = self.options.PSAWpasses
-        speed = self.options.PSAWspeed
-        power = self.options.PSAWpower
-        linepitch = self.options.PSAWlinepitch
-        assistair = self.options.PSAWassistair
+        passes = self.options.passes
+        speed = self.options.speed
+        power = self.options.power
+        assistair = self.options.assistair
 
-        #TODO: GET OLD STYLE AND COMBINE WITH NEW
+        isEngravingLayer = self.options.isEngravingLayer
+        linepitch = self.options.linepitch
 
-        style = {'photonsaw-speed' : speed, 'photonsaw-power': power, 'photonsaw-assistair' : assistair, 'photonsaw-passes' : passes}
 
-        self.current_layer.set('style', formatStyle(style))
+        #Get old style:
+        currentstyle = parseStyle(self.current_layer.get('style'))
+        
+        #inkex.debug(currentstyle)
+
+        psawstyle = {'photonsaw-speed' : speed, 'photonsaw-power': power, 'photonsaw-assistair' : assistair, 'photonsaw-passes' : passes}
+
+        if isEngravingLayer:
+          psawstyle.update({'photonsaw-speed' : '500', 'photonsaw-passes' : '1', 'photonsaw-linepitch' : linepitch})
+          
+
+
+        currentstyle.update(psawstyle)
+
+        self.current_layer.set('style', formatStyle(currentstyle))
+        
         
 # Create effect instance and apply it.
 effect = PSAWsvg()
