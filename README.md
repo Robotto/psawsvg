@@ -11,7 +11,9 @@ Files
 =====
 
 The extension consists of two files:
+
 psawsvg.inx - A descriptor which inkscape uses to create the query box for the plugin.
+
 psawsvg.py - The actual code, which reads the current layer's style attributes and appends the PSAW attributes to it.
 
 If a layer already has PSAW attributes, these are overwritten, so don't worry about duplicate entries.
@@ -23,7 +25,9 @@ Installation
 copy the two files into your inkscape extensions dir to:
 
 Linux: ~/.config/inkscape/extensions
+
 Windows: %appdata%\Inkscape\extensions
+
 Mac: ~/.config/inkscape/extensions
 
 
