@@ -54,7 +54,7 @@ class PSAWsvg(inkex.Effect):
         psawstyle = {'photonsaw-speed' : speed, 'photonsaw-power': power, 'photonsaw-assistair' : assistair, 'photonsaw-passes' : passes}
 
         if isEngravingLayer:
-          psawstyle.update({'photonsaw-speed' : '500', 'photonsaw-passes' : '1', 'photonsaw-linepitch' : linepitch})
+          psawstyle.update({'photonsaw-passes' : '1', 'photonsaw-linepitch' : linepitch})
           
 
 
