@@ -28,6 +28,7 @@ class PSAWsvg(inkex.Effect):
         self.OptionParser.add_option('-s', '--speed', action = 'store', type = 'string', dest = 'speed', default = '20', help = 'Enter speed in mm/sec')
         self.OptionParser.add_option('-P', '--power', action = 'store', type = 'string', dest = 'power', default = '80', help = 'Enter power in watts from 0 to 80')
         self.OptionParser.add_option('-a', '--assistair', action = 'store', type = 'inkbool', dest = 'assistair', default = True, help = 'Assistair on/off')
+        self.OptionParser.add_option('-n', '--anylayer', action = 'store', type = 'inkbool', dest = 'anylayer', default = True, help = 'Change all layers at once')
         self.OptionParser.add_option('-e', '--isEngravingLayer', action = 'store', type = 'inkbool', dest = 'isEngravingLayer', default = False, help ='Is the current layer intended for engraving?')
         self.OptionParser.add_option('-l', '--linepitch', action = 'store', type = 'string', dest = 'linepitch', default = '0.1', help = 'Enter raster linepitch in mm/pixel')
         
@@ -40,27 +41,29 @@ class PSAWsvg(inkex.Effect):
         passes = self.options.passes
         speed = self.options.speed
         power = self.options.power
-        assistair = self.options.assistair
+        if self.options.assistair:	# We want a numerical attribute
+            assistair = 1
+        else:
+            assistair = 0
 
-        isEngravingLayer = self.options.isEngravingLayer
         linepitch = self.options.linepitch
 
-
-        #Get old style:
-        currentstyle = parseStyle(self.current_layer.get('style'))
-        
-        #inkex.debug(currentstyle)
-
         psawstyle = {'photonsaw-speed' : speed, 'photonsaw-power': power, 'photonsaw-assistair' : assistair, 'photonsaw-passes' : passes}
+        if self.options.isEngravingLayer:
+            psawstyle.update({'photonsaw-passes' : '1', 'photonsaw-linepitch' : linepitch})
 
-        if isEngravingLayer:
-          psawstyle.update({'photonsaw-passes' : '1', 'photonsaw-linepitch' : linepitch})
-          
+        #inkex.debug(psawstyle)
 
-
-        currentstyle.update(psawstyle)
-
-        self.current_layer.set('style', formatStyle(currentstyle))
+        if not self.options.isEngravingLayer and self.options.anylayer:
+            gees = self.document.xpath('//svg:g', namespaces=inkex.NSS)
+            for g in gees:
+                currentstyle = parseStyle(g.get('style'))
+                currentstyle.update(psawstyle)
+                g.set('style', formatStyle(currentstyle))
+        else:
+                currentstyle = parseStyle(self.current_layer.get('style'))
+                currentstyle.update(psawstyle)
+                self.current_layer.set('style', formatStyle(currentstyle))
         
         
 # Create effect instance and apply it.
