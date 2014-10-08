@@ -5,19 +5,16 @@
   <dependency type="executable" location="extensions">inkex.py</dependency>
   <param name="info" type="description">Set PSAW attrributes for all or the current layer:</param>
   <param name="hint" type="description">Remember to execute this extension for each layer if not set to run at all layers.</param>
-  <param name="passes" type="string" _gui-text="# Of passes">2</param>
-  <param name="speed" type="string" _gui-text="Speed in mm/sec">20</param>
-  <param name="power" type="string" _gui-text="Power in watts from 0 to 80">80</param>
-  <param name="assistair" type="boolean" _gui-text="Assistair on/off">true</param>
+  <param name="passes" type="string" _gui-text="# Of passes">1</param>
+  <param name="speed" type="string" _gui-text="Speed in mm/sec">15</param>
   <param name="anylayer" type="boolean" _gui-text="Apply to all top level layers at once">true</param>
-  <param name="engravinghint" type="description">Checking the engraving box overrides the speed and passes settings to 500mm/s and a single pass, since acceleration is handled by the PSAW raster decoder. It also applies the attributes the THE CURRENT layer ONLY.</param>
-  <param name="isEngravingLayer" type="boolean" _gui-text="Is this an engraving layer?">false</param>
+  <param name="rasterSpeed" type="string" _gui-text="Speed of raster engraving, slow=precise, fast=fast">300</param>
   <param name="linepitch" type="string" _gui-text="Linepitch for engraving in mm/pixel">0.1</param>
   <effect needs-live-preview="false">
 
     <object-type>all</object-type>
     <effects-menu>
-  
+
     </effects-menu>
   </effect>
   <script>
