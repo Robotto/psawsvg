@@ -3,9 +3,9 @@ psawsvg
 
 An inkscape extension written in python to help you add photonsaw attributes to SVG layers created in inkscape.
 
-This script runs on all top-level layers unless deselect the "anylayer" checkbox.
+This script runs on all top-level layers unless you specifically deselect this option.
 
-But that's not a hassle at all, because you have already made several layers which you intend to apply different psaw attributes to... right?
+For most things that's all you need :)
 
 Files
 =====
