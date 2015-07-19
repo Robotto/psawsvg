@@ -11,15 +11,8 @@ import inkex
 from simplestyle import *
 
 class PSAWsvg(inkex.Effect):
-    """
-    Example Inkscape effect extension.
-    Creates a new layer with a "Hello World!" text centered in the middle of the document.
-    """
+
     def __init__(self):
-        """
-        Constructor.
-        Defines the "--what" option of a script.
-        """
         # Call the base class constructor.
         inkex.Effect.__init__(self)
 
